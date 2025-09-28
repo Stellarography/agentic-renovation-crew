@@ -1,1 +1,25 @@
-node_modules
+# Dependencies
+node_modules/
+pnpm-debug.log
+npm-debug.log
+
+# Builds
+dist/
+out/
+build/
+
+# Electron cache
+*.asar
+
+# Logs
+logs
+*.log
+
+# System/IDE stuff
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Backup (in case you move nested folder out)
+ARC_nested_backup/

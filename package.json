@@ -25,14 +25,18 @@
   "license": "ISC",
   "description": "AI-powered desktop IDE for collaborative development",
   "dependencies": {
+    "@langchain/community": "^0.2.5",
     "@types/uuid": "^10.0.0",
     "framer-motion": "^12.23.14",
+    "langchain": "^0.2.5",
     "lucide-react": "^0.544.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-markdown": "^10.1.0",
     "remark-gfm": "^4.0.1",
+    "tailwindcss-animate": "^1.0.7",
     "uuid": "^13.0.0",
+    "zod": "^3.23.8",
     "zustand": "^5.0.8"
   },
   "devDependencies": {
@@ -55,7 +59,10 @@
   },
   "build": {
     "appId": "com.agenticrenovationcrew.arc",
-    "files": ["dist/electron/**/*", "dist/renderer/**/*"],
+    "files": [
+      "dist/electron/**/*",
+      "dist/renderer/**/*"
+    ],
     "directories": {
       "output": "dist"
     },

@@ -27,10 +27,11 @@ interface ElectronAPI {
 // Expose protected methods that allow the renderer process to use
 // the ipcRenderer without exposing the entire object
 contextBridge.exposeInMainWorld('electronAPI', {
-  agent: {
-    sendMessage: (message: any) => ipcRenderer.invoke('agent:send-message', message),
-    getConfigs: () => ipcRenderer.invoke('agent:get-configs'),
-    updateConfig: (config: any) => ipcRenderer.invoke('agent:update-config', config)
+  ai: {
+    generateStream: (prompt: string, model: string) => 
+      ipcRenderer.invoke('ai:generate-stream', prompt, model),
+    onStreamChunk: (callback: (chunk: { content: string }) => void) =>
+      ipcRenderer.on('ai:stream-chunk', (event, chunk) => callback(chunk)),
   },
   file: {
     openDialog: () => ipcRenderer.invoke('file:open-dialog'),
@@ -41,7 +42,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
   system: {
     getInfo: () => ipcRenderer.invoke('system:get-info')
   }
-} as ElectronAPI)
+});
 
 // Type definitions for the renderer
 declare global {

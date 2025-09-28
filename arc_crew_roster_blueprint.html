@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ARC Crew Roster Blueprint</title>
+<style>
+  @page { size: Letter; margin: 0.5in; }
+  :root {
+    --bg: #07111a;
+    --grid: rgba(0, 255, 255, 0.08);
+    --ink: #e6fcff;
+    --muted: #8ad7ff;
+    --accent: #00e5ff;
+    --accent-2: #7efcff;
+    --card: #0a1b27;
+    --glow: 0 0 0.5rem rgba(0, 229, 255, 0.6), 0 0 2.2rem rgba(0, 229, 255, 0.35);
+    --rule: linear-gradient(90deg, rgba(0,229,255,.8), rgba(126,252,255,.2));
+  }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    font-family: "Inter", "Segoe UI", Roboto, Ubuntu, Arial, sans-serif;
+    color: var(--ink);
+    background: radial-gradient(1000px 700px at 100% -10%, rgba(0, 229, 255, 0.09), transparent),
+                radial-gradient(800px 600px at -10% 110%, rgba(126, 252, 255, 0.08), transparent),
+                var(--bg);
+    line-height: 1.25;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  /* Blueprint grid overlay */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background:
+      linear-gradient(var(--grid) 1px, transparent 1px) 0 0 / 24px 24px,
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px) 0 0 / 24px 24px;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .page {
+    position: relative;
+    z-index: 1;
+    padding: 0.25in 0.1in 0.1in 0.1in;
+  }
+  header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .title {
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-size: 26px;
+    color: var(--accent);
+    text-shadow: 0 0 12px rgba(0,229,255,.5);
+  }
+  .meta {
+    text-align: right;
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .rule {
+    height: 2px;
+    background: var(--rule);
+    box-shadow: var(--glow);
+    margin: 6px 0 10px 0;
+  }
+  .subtitle {
+    color: var(--muted);
+    font-size: 12px;
+    margin-top: -2px;
+    margin-bottom: 8px;
+  }
+  /* Grid of role cards */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  .card {
+    background: linear-gradient(180deg, rgba(12, 32, 46, 0.95), rgba(8, 24, 35, 0.95));
+    border: 1px solid rgba(0, 229, 255, 0.35);
+    box-shadow: var(--glow);
+    border-radius: 8px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .card .role {
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--accent-2);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .card .desc {
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
+  .list { font-size: 12px; display: grid; gap: 4px; }
+  .list .item strong { color: var(--ink); }
+  pre, code { font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace; }
+  .block {
+    background: #061620;
+    border: 1px solid rgba(0,229,255,.3);
+    border-radius: 6px;
+    padding: 8px;
+    font-size: 11px;
+    color: #b9faff;
+    overflow: hidden;
+  }
+  .cmd { color: #a2f6ff; }
+  .note { font-size: 10px; color: #9de7ff; opacity: .95; }
+  .tight { margin-top: -4px; }
+  .footer {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  .mini {
+    background: rgba(6, 22, 32, 0.7);
+    border: 1px dashed rgba(0,229,255,.35);
+    border-radius: 8px;
+    padding: 10px;
+  }
+  .kvs {
+    display: grid; grid-template-columns: auto 1fr; column-gap: 10px; row-gap: 6px; font-size: 11px;
+  }
+  .kvs .k { color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+  .kvs .v { color: var(--ink); }
+  @media print { .grid { gap: 9px; } }
+</style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div>
+        <div class="title">ARC Crew Roster Blueprint</div>
+        <div class="subtitle">Holographic quick-reference for local AI contributors · Models and Ollama pulls · One page</div>
+      </div>
+      <div class="meta">
+        Version: 1.0 · Date: <script>document.write(new Date().toLocaleDateString());</script><noscript>2025-09-25</noscript><br/>
+        Theme: Blueprint/Holographic
+      </div>
+    </header>
+    <div class="rule"></div>
+
+    <section class="grid">
+      <!-- Foreman -->
+      <div class="card">
+        <div class="role">Foreman</div>
+        <div class="desc">Coordinator/orchestrator for agent handoffs and final QA.</div>
+        <div class="label">Recommended</div>
+        <div class="list">
+          <div class="item">• <strong>llama3.1:8b-instruct</strong> (fast)</div>
+          <div class="item">• <strong>llama3.1:70b-instruct</strong> (max quality)</div>
+          <div class="item">• Alt: <strong>mistral:instruct</strong></div>
+        </div>
+        <div class="label tight">Ollama pulls</div>
+        <div class="block"><pre class="cmd">ollama pull llama3.1:8b-instruct
+ollama pull llama3.1:70b-instruct
+ollama pull mistral:instruct</pre></div>
+        <div class="note">Tip: Use 8B for latency; promote to 70B for critical merges.</div>
+      </div>
+
+      <!-- Coder -->
+      <div class="card">
+        <div class="role">Coder</div>
+        <div class="desc">Code generation, refactoring, tests, and bug triage.</div>
+        <div class="label">Recommended</div>
+        <div class="list">
+          <div class="item">• <strong>deepseek-coder:33b</strong> (strongest OSS)</div>
+          <div class="item">• <strong>deepseek-coder:6.7b</strong> (lighter)</div>
+          <div class="item">• <strong>qwen2.5-coder:32b</strong> or <strong>:7b</strong></div>
+        </div>
+        <div class="label tight">Ollama pulls</div>
+        <div class="block"><pre class="cmd">ollama pull deepseek-coder:33b
+ollama pull deepseek-coder:6.7b
+ollama pull qwen2.5-coder:32b
+ollama pull qwen2.5-coder:7b</pre></div>
+        <div class="note">Use larger coder models for complex multi-file edits and reasoning.</div>
+      </div>
+
+      <!-- Planner -->
+      <div class="card">
+        <div class="role">Planner</div>
+        <div class="desc">Decomposes tasks, proposes options, drafts execution steps.</div>
+        <div class="label">Recommended</div>
+        <div class="list">
+          <div class="item">• <strong>mistral:instruct</strong> (snappy)</div>
+          <div class="item">• <strong>llama3.1:8b-instruct</strong> (balanced)</div>
+        </div>
+        <div class="label tight">Ollama pulls</div>
+        <div class="block"><pre class="cmd">ollama pull mistral:instruct
+ollama pull llama3.1:8b-instruct</pre></div>
+        <div class="note">Constrain outputs to bullet steps, owners, and rough estimates.</div>
+      </div>
+
+      <!-- RAG -->
+      <div class="card">
+        <div class="role">RAG</div>
+        <div class="desc">Retrieval, embeddings, and grounded answering.</div>
+        <div class="label">Recommended</div>
+        <div class="list">
+          <div class="item">• Embeddings: <strong>mxbai-embed-large</strong> (1024D)</div>
+          <div class="item">• Embeddings: <strong>nomic-embed-text</strong> (768D)</div>
+          <div class="item">• Gen: <strong>llama3.1:8b-instruct</strong></div>
+        </div>
+        <div class="label tight">Ollama pulls</div>
+        <div class="block"><pre class="cmd">ollama pull mxbai-embed-large
+ollama pull nomic-embed-text
+ollama pull llama3.1:8b-instruct</pre></div>
+        <div class="note">Chunk ~800–1,000 tokens, overlap 100–200; store vectors in your DB/FAISS.</div>
+      </div>
+
+      <!-- Vision -->
+      <div class="card">
+        <div class="role">Vision</div>
+        <div class="desc">Image understanding, OCR-lite, charts, and UI parsing.</div>
+        <div class="label">Recommended</div>
+        <div class="list">
+          <div class="item">• <strong>qwen2.5vl:7b</strong> (multimodal VLM)</div>
+          <div class="item">• <strong>llava</strong> or <strong>llava-llama3</strong></div>
+        </div>
+        <div class="label tight">Ollama pulls</div>
+        <div class="block"><pre class="cmd">ollama pull qwen2.5vl:7b
+ollama pull llava
+ollama pull llava-llama3</pre></div>
+        <div class="note">Provide task-specific system prompts; prefer PNG/JPG ≤2MP for speed.</div>
+      </div>
+
+      <!-- Speech -->
+      <div class="card">
+        <div class="role">Speech</div>
+        <div class="desc">Speech-to-text (ASR) for meetings, commands, and notes.</div>
+        <div class="label">Recommended</div>
+        <div class="list">
+          <div class="item">• ASR: <strong>Whisper</strong> family (local)</div>
+          <div class="item">• TTS: external (Piper, Coqui XTTS)</div>
+        </div>
+        <div class="label tight">Ollama pulls</div>
+        <div class="block"><pre class="cmd"># Example community build (ASR)
+ollama pull dimavz/whisper-tiny</pre></div>
+        <div class="note">For higher accuracy, consider faster-whisper or Whisper large-v3 via non-Ollama runtimes.</div>
+      </div>
+    </section>
+
+    <div class="footer">
+      <div class="mini">
+        <div class="label">Usage notes</div>
+        <ul style="margin:6px 0 0 16px; padding:0; font-size:11px; color:#baf6ff;">
+          <li>Quantized variants (e.g., q4_0, q5_K_M) reduce VRAM at minor quality trade-offs.</li>
+          <li>Prefer instruct-tuned tags for agents and chat-style prompting.</li>
+          <li>For RAG: test both mxbai-embed-large and nomic-embed-text; results vary by corpus.</li>
+          <li>Pin versions in production: e.g., <code>ollama pull llama3.1:8b-instruct-q4_0</code>.</li>
+        </ul>
+      </div>
+      <div class="mini">
+        <div class="kvs">
+          <div class="k">Context</div><div class="v">Llama 3.1 supports up to 128K input in many tags.</div>
+          <div class="k">Latency</div><div class="v">Use 7B–8B for interactive loops; scale up for final pass.</div>
+          <div class="k">Vision IO</div><div class="v">Send image bytes/base64; keep resolutions modest for speed.</div>
+          <div class="k">Emb dims</div><div class="v">mxbai: 1024D · nomic: 768D</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
